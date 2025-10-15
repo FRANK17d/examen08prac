@@ -24,6 +24,5 @@ urlpatterns = [
     path('', include('inventario_vehiculos.urls')),
 ]
 
-# Configuración para archivos media en desarrollo
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Configuración para archivos media
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
