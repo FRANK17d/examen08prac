@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de Tipos de Vehículos{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-tags"></i> Tipos de Vehículos</h2>
+    <a href="{% url 'inventario:tipo_create' %}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Agregar Tipo
+    </a>
+</div>
+
+{% if tipos %}
+<div class="row">
+    {% for tipo in tipos %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fas fa-tag"></i> {{ tipo.tipo }}
+                </h5>
+                {% if tipo.descripcion %}
+                    <p class="card-text">{{ tipo.descripcion }}</p>
+                {% else %}
+                    <p class="card-text text-muted">Sin descripción</p>
+                {% endif %}
+                <div class="btn-group w-100" role="group">
+                    <a href="{% url 'inventario:tipo_edit' tipo.id %}" class="btn btn-outline-warning btn-sm">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                    <a href="{% url 'inventario:tipo_delete' tipo.id %}" class="btn btn-outline-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este tipo?')">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info text-center">
+    <i class="fas fa-info-circle fa-2x mb-3"></i>
+    <h4>No hay tipos de vehículos registrados</h4>
+    <p>Comienza agregando los tipos de vehículos que manejas.</p>
+    <a href="{% url 'inventario:tipo_create' %}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Agregar Primer Tipo
+    </a>
+</div>
+{% endif %}
+{% endblock %}

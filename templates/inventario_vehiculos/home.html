@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio - Inventario de Vehículos{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron bg-primary text-white p-5 rounded mb-4">
+            <h1 class="display-4">
+                <i class="fas fa-car"></i> Sistema de Inventario de Vehículos
+            </h1>
+            <p class="lead">Gestiona tu inventario de vehículos de manera eficiente</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5><i class="fas fa-list"></i> Gestión de Vehículos</h5>
+            </div>
+            <div class="card-body">
+                <p>Administra el inventario de vehículos: agregar, editar, eliminar y consultar.</p>
+                <a href="{% url 'inventario:vehiculo_list' %}" class="btn btn-success">
+                    <i class="fas fa-car"></i> Ver Vehículos
+                </a>
+                <a href="{% url 'inventario:vehiculo_create' %}" class="btn btn-outline-success">
+                    <i class="fas fa-plus"></i> Agregar Vehículo
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5><i class="fas fa-tags"></i> Gestión de Tipos</h5>
+            </div>
+            <div class="card-body">
+                <p>Administra los tipos de vehículos: carros, motos, camiones, etc.</p>
+                <a href="{% url 'inventario:tipo_list' %}" class="btn btn-info">
+                    <i class="fas fa-tags"></i> Ver Tipos
+                </a>
+                <a href="{% url 'inventario:tipo_create' %}" class="btn btn-outline-info">
+                    <i class="fas fa-plus"></i> Agregar Tipo
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

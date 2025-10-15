@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if vehiculo %}Editar{% else %}Agregar{% endif %} Vehículo{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4>
+                    <i class="fas fa-car"></i> 
+                    {% if vehiculo %}Editar Vehículo{% else %}Agregar Nuevo Vehículo{% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="marca" class="form-label">Marca *</label>
+                            <input type="text" class="form-control" id="marca" name="marca" 
+                                   value="{% if vehiculo %}{{ vehiculo.marca }}{% endif %}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="modelo" class="form-label">Modelo *</label>
+                            <input type="text" class="form-control" id="modelo" name="modelo" 
+                                   value="{% if vehiculo %}{{ vehiculo.modelo }}{% endif %}" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="año" class="form-label">Año *</label>
+                            <input type="number" class="form-control" id="año" name="año" 
+                                   value="{% if vehiculo %}{{ vehiculo.año }}{% endif %}" 
+                                   min="1900" max="2030" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="id_tipo" class="form-label">Tipo de Vehículo *</label>
+                            <select class="form-select" id="id_tipo" name="id_tipo" required>
+                                <option value="">Seleccionar tipo...</option>
+                                {% for tipo in tipos %}
+                                    <option value="{{ tipo.id }}" 
+                                            {% if vehiculo and vehiculo.id_tipo.id == tipo.id %}selected{% endif %}>
+                                        {{ tipo.tipo }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="imagen" class="form-label">Imagen</label>
+                        <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+                        {% if vehiculo and vehiculo.imagen %}
+                            <div class="mt-2">
+                                <small class="text-muted">Imagen actual:</small><br>
+                                <img src="{{ vehiculo.imagen.url }}" alt="Imagen actual" class="img-thumbnail" style="max-width: 200px;">
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'inventario:vehiculo_list' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Cancelar
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> 
+                            {% if vehiculo %}Actualizar{% else %}Guardar{% endif %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
