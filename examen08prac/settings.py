@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
+    'cloudinary',
     'inventario_vehiculos',
     'whitenoise.runserver_nostatic',
 ]
@@ -132,10 +134,20 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Configuración para archivos media en producción
-if not DEBUG:
-    # En producción, usar un servicio de almacenamiento
+# Cloudinary configuration
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', ''),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY', ''),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', ''),
+}
+
+# Configuración para archivos media
+if DEBUG:
+    # En desarrollo, usar archivos locales
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+else:
+    # En producción, usar Cloudinary
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
