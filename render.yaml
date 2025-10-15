@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: examen08prac
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
+    startCommand: gunicorn examen08prac.wsgi:application
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False
+      - key: ALLOWED_HOSTS
+        value: examen08prac.onrender.com
+      - key: DB_NAME
+        fromDatabase:
+          name: bd_vehiculos
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: bd_vehiculos
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: bd_vehiculos
+          property: password
+      - key: DB_HOST
+        fromDatabase:
+          name: bd_vehiculos
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: bd_vehiculos
+          property: port
+
+databases:
+  - name: bd_vehiculos
+    plan: free
