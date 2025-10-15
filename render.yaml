@@ -3,7 +3,7 @@ services:
     name: examen08prac
     env: python
     plan: free
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
     startCommand: python manage.py migrate && gunicorn examen08prac.wsgi:application
     envVars:
       - key: SECRET_KEY
