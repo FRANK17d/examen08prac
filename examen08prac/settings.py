@@ -131,12 +131,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files
-if DEBUG:
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = BASE_DIR / 'media'
-else:
-    # En producción, usar Cloudinary
-    MEDIA_URL = 'https://res.cloudinary.com/dnssk227t/image/upload/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Cloudinary configuration
 CLOUDINARY_STORAGE = {
