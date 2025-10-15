@@ -36,3 +36,5 @@ services:
 databases:
   - name: bd_vehiculos
     plan: free
+    databaseName: bd_vehiculos
+    user: bd_vehiculos_user
